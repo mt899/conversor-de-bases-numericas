@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conversor de Bases Numéricas</title>
+</head>
+<body>
+
+  <h1>Conversor de Bases Numéricas</h1>
+  <p>Digite um número e selecione a base de origem. O resultado será exibido nas demais bases.</p>
+
+  <label for="inputValue">Número:</label><br />
+  <input type="text" id="inputValue" placeholder="Ex: 255" style="width: 200px;" /><br /><br />
+
+  <label for="inputBase">Base de origem:</label><br />
+  <select id="inputBase">
+    <option value="10">Decimal (base 10)</option>
+    <option value="2">Binário (base 2)</option>
+    <option value="16">Hexadecimal (base 16)</option>
+    <option value="8">Octal (base 8)</option>
+  </select><br /><br />
+
+  <button onclick="converter()">Converter</button>
+  <button onclick="limpar()">Limpar</button>
+
+  <br /><br />
+  <div id="resultado"></div>
+
+  <br />
+  <p><strong>Tabela de referência rápida:</strong></p>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Decimal</th>
+        <th>Binário</th>
+        <th>Hexadecimal</th>
+        <th>Octal</th>
+      </tr>
+    </thead>
+    <tbody id="tabelaReferencia"></tbody>
+  </table>
+
+  <script>
+    function converter() {
+      const input = document.getElementById('inputValue').value.trim();
+      const base = parseInt(document.getElementById('inputBase').value);
+      const resultado = document.getElementById('resultado');
+
+      if (!input) {
+        resultado.innerHTML = '<p style="color:red">Por favor, insira um número.</p>';
+        return;
+      }
+
+      const decimal = parseInt(input, base);
+
+      if (isNaN(decimal) || decimal < 0) {
+        resultado.innerHTML = '<p style="color:red">Número inválido para a base selecionada.</p>';
+        return;
+      }
+
+      const binario = decimal.toString(2);
+      const hex = decimal.toString(16).toUpperCase();
+      const octal = decimal.toString(8);
+      const dec = decimal.toString(10);
+
+      resultado.innerHTML = `
+        <h3>Resultados para: ${input} (base ${base})</h3>
+        <table border="1" cellpadding="5" cellspacing="0">
+          <tr><th>Base</th><th>Valor</th></tr>
+          <tr><td>Decimal (10)</td><td>${dec}</td></tr>
+          <tr><td>Binário (2)</td><td>${binario}</td></tr>
+          <tr><td>Hexadecimal (16)</td><td>${hex}</td></tr>
+          <tr><td>Octal (8)</td><td>${octal}</td></tr>
+        </table>
+      `;
+    }
+
+    function limpar() {
+      document.getElementById('inputValue').value = '';
+      document.getElementById('resultado').innerHTML = '';
+    }
+
+    // Tabela de referência (0–15)
+    function gerarTabela() {
+      const tbody = document.getElementById('tabelaReferencia');
+      for (let i = 0; i <= 15; i++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${i}</td>
+          <td>${i.toString(2).padStart(4, '0')}</td>
+          <td>${i.toString(16).toUpperCase()}</td>
+          <td>${i.toString(8)}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    document.getElementById('inputValue').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') converter();
+    });
+
+    gerarTabela();
+  </script>
+
+</body>
+</html>
