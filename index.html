@@ -29,7 +29,21 @@
 
       const decimal = parseInt(input, base);
     }
+const binario = decimal.toString(2);
+      const hex = decimal.toString(16).toUpperCase();
+      const octal = decimal.toString(8);
+      const dec = decimal.toString(10);
 
+      resultado.innerHTML = `
+        <h3>Resultados para: ${input} (base ${base})</h3>
+        <table border="1" cellpadding="5" cellspacing="0">
+          <tr><th>Base</th><th>Valor</th></tr>
+          <tr><td>Decimal (10)</td><td>${dec}</td></tr>
+          <tr><td>Binário (2)</td><td>${binario}</td></tr>
+          <tr><td>Hexadecimal (16)</td><td>${hex}</td></tr>
+          <tr><td>Octal (8)</td><td>${octal}</td></tr>
+        </table>
+      `;
     function limpar() {
       document.getElementById('inputValue').value = '';
       document.getElementById('resultado').innerHTML = '';
