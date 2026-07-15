@@ -380,5 +380,67 @@
   </footer>
 
   <div class="copied-toast" id="toast">✓ Copiado!</div>
+  <script>
+    let baseAtual = 10;
+    const baseColors = { '10': 'dec', '2': 'bin', '16': 'hex', '8': 'oct' };
+
+    document.querySelectorAll('.base-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const base = btn.dataset.base;
+        baseAtual = parseInt(base);
+        document.querySelectorAll('.base-btn').forEach(b => b.className = 'base-btn');
+        btn.classList.add('active-' + baseColors[base]);
+        const placeholders = { '10': 'Ex: 255', '2': 'Ex: 11111111', '16': 'Ex: FF', '8': 'Ex: 377' };
+        document.getElementById('inputValue').placeholder = placeholders[base];
+        converter();
+      });
+    });
+
+    function converter() {
+      const raw = document.getElementById('inputValue').value.trim().toUpperCase();
+      const errorEl = document.getElementById('errorMsg');
+      const inputEl = document.getElementById('inputValue');
+
+      if (!raw) {
+        setResults('—', '—', '—', '—');
+        errorEl.textContent = '';
+        inputEl.classList.remove('error');
+        return;
+      }
+
+      const decimal = parseInt(raw, baseAtual);
+
+      if (isNaN(decimal) || decimal < 0) {
+        const nomes = { 10: 'dígitos 0–9', 2: 'dígitos 0 e 1', 16: 'dígitos 0–9 e A–F', 8: 'dígitos 0–7' };
+        errorEl.textContent = `Inválido para base ${baseAtual}. Use ${nomes[baseAtual]}.`;
+        inputEl.classList.add('error');
+        setResults('—', '—', '—', '—');
+        return;
+      }
+
+      errorEl.textContent = '';
+      inputEl.classList.remove('error');
+      setResults(decimal.toString(10), decimal.toString(2), decimal.toString(16).toUpperCase(), decimal.toString(8));
+    }
+
+    function setResults(dec, bin, hex, oct) {
+      const ids = { dec, bin, hex, oct };
+      for (const [k, v] of Object.entries(ids)) {
+        const el = document.getElementById('res' + k.charAt(0).toUpperCase() + k.slice(1));
+        if (el) {
+          el.textContent = v;
+          if (v !== '—') {
+            el.closest('.result-card').classList.add('just-updated');
+            setTimeout(() => el.closest('.result-card').classList.remove('just-updated'), 300);
+          }
+        }
+      }
+    }
+
+    document.getElementById('inputValue').addEventListener('input', converter);
+    document.getElementById('inputValue').addEventListener('keydown', e => {
+      if (e.key === 'Enter') converter();
+    });
+  </script>
 </body>
 </html>
