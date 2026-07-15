@@ -441,6 +441,40 @@
     document.getElementById('inputValue').addEventListener('keydown', e => {
       if (e.key === 'Enter') converter();
     });
+    const valores = { dec: 'resDec', bin: 'resBin', hex: 'resHex', oct: 'resOct' };
+
+    function copiar(tipo) {
+      const val = document.getElementById(valores[tipo]).textContent;
+      if (val === '—') return;
+      navigator.clipboard.writeText(val).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1800);
+      });
+    }
+
+    let tabelaAberta = false;
+    function toggleTabela() {
+      tabelaAberta = !tabelaAberta;
+      document.getElementById('refTable').classList.toggle('open', tabelaAberta);
+      document.getElementById('refArrow').textContent = tabelaAberta ? '▲' : '▼';
+    }
+
+    function gerarTabela() {
+      const tbody = document.getElementById('tabelaBody');
+      for (let i = 0; i <= 15; i++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="td-dec">${i}</td>
+          <td class="td-bin">${i.toString(2).padStart(4, '0')}</td>
+          <td class="td-hex">${i.toString(16).toUpperCase()}</td>
+          <td class="td-oct">${i.toString(8)}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    gerarTabela();
   </script>
 </body>
 </html>
