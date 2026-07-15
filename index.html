@@ -72,6 +72,20 @@ const binario = decimal.toString(2);
       document.getElementById('inputValue').value = '';
       document.getElementById('resultado').innerHTML = '';
     }
+    function gerarTabela() {
+      const tbody = document.getElementById('tabelaReferencia');
+      for (let i = 0; i <= 15; i++) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${i}</td>
+          <td>${i.toString(2).padStart(4, '0')}</td>
+          <td>${i.toString(16).toUpperCase()}</td>
+          <td>${i.toString(8)}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+    gerarTabela();
   </script>
 </body>
 </html>
