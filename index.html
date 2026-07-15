@@ -86,6 +86,9 @@ const binario = decimal.toString(2);
       }
     }
     gerarTabela();
+    document.getElementById('inputValue').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') converter();
+    });
   </script>
 </body>
 </html>
