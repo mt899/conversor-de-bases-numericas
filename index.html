@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <title>Título da página</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-  </body>
+<head>
+  <title>Conversor de Bases Numéricas</title>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1>Conversor de Bases Numéricas</h1>
+  <p>Digite um número e selecione a base de origem.</p>
+  <label for="inputValue">Número:</label><br />
+  <input type="text" id="inputValue" placeholder="Ex: 255" /><br /><br />
+
+  <label for="inputBase">Base de origem:</label><br />
+  <select id="inputBase">
+    <option value="10">Decimal (base 10)</option>
+    <option value="2">Binário (base 2)</option>
+    <option value="16">Hexadecimal (base 16)</option>
+    <option value="8">Octal (base 8)</option>
+  </select><br /><br />
+</body>
 </html>
