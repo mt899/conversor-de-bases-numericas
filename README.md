@@ -31,8 +31,8 @@ Aplicação web para conversão de números entre as bases **decimal**, **binár
 
 ```
 baseconvert/
-├── index.html        # Versão atual (v2 — com estética elaborada)
-├── index-v1.html     # Versão inicial (v1 — funcional, sem estética)
+├── index-v1.html        # Versão atual (v1 — com estética elaborada)
+├── index.html     # Versão inicial (funcional, sem estética)
 └── README.md         # Este arquivo
 ```
 
